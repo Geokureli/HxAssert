@@ -1,4 +1,4 @@
-package com.geokureli.krakel.debug;
+package com.geokureli.debug;
 import haxe.Log;
 import haxe.PosInfos;
 
