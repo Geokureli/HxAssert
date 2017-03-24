@@ -42,32 +42,32 @@ class Expect {
     
     static var _instance:AssertLogger = new AssertLogger(function(?msg:String, ?pos:PosInfos):Void { fail(msg, pos); } );
     
-    /** Asserts successfully when the condition is true. */
+    /** Expects that the condition is true. */
     inline static public function isTrue(cond:Bool, msg = "Expected true", ?pos:PosInfos):Bool {
         
         return _instance.isTrue(cond, msg, pos); 
     }
     
-    /** Asserts successfully when the condition is false. */
+    /** Expects that the condition is false. */
     inline static public function isFalse(cond:Bool, msg = "Expected false", ?pos:PosInfos):Bool {
         
         return _instance.isFalse(cond, msg, pos);
     }
     
-    /** Asserts successfully when the value is null. */
+    /** Expects that the value is null. */
     inline static public function isNull(value:Dynamic, ?msg:String, ?pos:PosInfos):Bool {
         
         return _instance.isNull(value, msg, pos);
     }
     
-    /** Asserts successfully when the value is not null. */
+    /** Expects that the value is not null. */
     inline static public function nonNull(value:Dynamic, msg = "Unexpected null", ?pos:PosInfos):Bool {
         
         return _instance.nonNull(value, msg, pos);
     }
     
     /**
-     * Asserts successfully when the 'value' parameter is of the of the passed type 'type'.
+     * Expects that the 'value' parameter is of the of the passed type 'type'.
      * @param value     The parent value to test
      * @param property  The property to assert
      */
@@ -77,7 +77,7 @@ class Expect {
     }
     
     /**
-     * Asserts successfully when the 'value' parameter is of the of the passed type 'type'.
+     * Expects that the 'value' parameter is of the of the passed type 'type'.
      * @param value  The value to test
      * @param type   The type to test against
      */
@@ -87,7 +87,7 @@ class Expect {
     }
     
     /**
-     * Asserts successfully when the 'value' parameter is of the of the passed type 'type'.
+     * Expects that the 'value' parameter is of the of the passed type 'type'.
      * @param value  The value to test
      * @param type   The type to test against
      */
@@ -96,14 +96,14 @@ class Expect {
         return _instance.isNot(value, type, msg, pos);
     }
     
-    /** Asserts successfully when Reflect.isObject(value) is true. */
+    /** Expects that Reflect.isObject(value) is true. */
     inline static public function isObject(value:Dynamic, ?msg:String, ?pos:PosInfos):Bool {
         
         return _instance.isObject(value, msg, pos);
     }
     
     /**
-     * Asserts successfully when the value parameter is equal to the expected one.
+     * Expects that the value parameter is equal to the expected one.
      * 
      * @example Assert.equals(10, age);
      * 
@@ -116,7 +116,7 @@ class Expect {
     }
 
     /**
-     * Asserts successfully when the value parameter is not the same as the expected one.
+     * Expects that the value parameter is not the same as the expected one.
      * 
      * @example Assert.notEquals(10, age);
      * 
@@ -129,7 +129,7 @@ class Expect {
     }
 
     /**
-     * Asserts successfully when the value parameter does match against the passed EReg instance.
+     * Expects that the value parameter does match against the passed EReg instance.
      * 
      * @example Assert.match(~/x/i, "haXe");
      * 
