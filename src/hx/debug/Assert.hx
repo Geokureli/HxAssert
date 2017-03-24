@@ -5,8 +5,8 @@ import haxe.PosInfos;
 
 /**
  * A set of functions that signify failure when expected conditions aren't meant.
- * By Default, Assert will throw an error message on assertion fail, but you can
- * change this to do whatever you want. 
+ * In Debug, by Default, Assert will throw an error message on an assertion fail,
+ * but you can change this to do whatever you want. 
  * Assert functions return false when the condition is not met. Say you want to
  * throw an error on debug mode, but try and continue on release mode. You could
  * put each assert in an if to gracefully handle the fail case.
@@ -41,37 +41,41 @@ class Assert {
 
         if (msg == null) msg = "failure";
         
+        #if debug
         throw '${pos.fileName}[${pos.lineNumber}]: $msg';
+        #else
+        trace('${pos.fileName}[${pos.lineNumber}]: $msg');
+        #end
     }
     
     static var _instance:AssertLogger = new AssertLogger(function(?msg:String, ?pos:PosInfos):Void { fail(msg, pos); } );
     
-    /** Asserts successfully when the condition is true. */
+    /** Asserts that the condition is true. */
     inline static public function isTrue(cond:Bool, msg = "Expected true", ?pos:PosInfos):Bool {
         
         return _instance.isTrue(cond, msg, pos); 
     }
     
-    /** Asserts successfully when the condition is false. */
+    /** Asserts that the condition is false. */
     inline static public function isFalse(cond:Bool, msg = "Expected false", ?pos:PosInfos):Bool {
         
         return _instance.isFalse(cond, msg, pos);
     }
     
-    /** Asserts successfully when the value is null. */
+    /** Asserts that the value is null. */
     inline static public function isNull(value:Dynamic, ?msg:String, ?pos:PosInfos):Bool {
         
         return _instance.isNull(value, msg, pos);
     }
     
-    /** Asserts successfully when the value is not null. */
+    /** Asserts that the value is not null. */
     inline static public function nonNull(value:Dynamic, msg = "Unexpected null", ?pos:PosInfos):Bool {
         
         return _instance.nonNull(value, msg, pos);
     }
     
     /**
-     * Asserts successfully when the 'value' parameter is of the of the passed type 'type'.
+     * Asserts that the 'value' parameter is of the of the passed type 'type'.
      * @param value     The parent value to test
      * @param property  The property to assert
      */
@@ -81,7 +85,7 @@ class Assert {
     }
     
     /**
-     * Asserts successfully when the 'value' parameter is of the of the passed type 'type'.
+     * Asserts that the 'value' parameter is of the of the passed type 'type'.
      * @param value  The value to test
      * @param type   The type to test against
      */
@@ -91,7 +95,7 @@ class Assert {
     }
     
     /**
-     * Asserts successfully when the 'value' parameter is of the of the passed type 'type'.
+     * Asserts that the 'value' parameter is of the of the passed type 'type'.
      * @param value  The value to test
      * @param type   The type to test against
      */
@@ -100,14 +104,14 @@ class Assert {
         return _instance.isNot(value, type, msg, pos);
     }
     
-    /** Asserts successfully when Reflect.isObject(value) is true. */
+    /** Asserts that when Reflect.isObject(value) is true. */
     inline static public function isObject(value:Dynamic, ?msg:String, ?pos:PosInfos):Bool {
         
         return _instance.isObject(value, msg, pos);
     }
     
     /**
-     * Asserts successfully when the value parameter is equal to the expected one.
+     * Asserts that when the value parameter is equal to the expected one.
      * 
      * @example Assert.equals(10, age);
      * 
@@ -120,7 +124,7 @@ class Assert {
     }
 
     /**
-     * Asserts successfully when the value parameter is not the same as the expected one.
+     * Asserts that the value parameter is not the same as the expected one.
      * 
      * @example Assert.notEquals(10, age);
      * 
@@ -133,7 +137,7 @@ class Assert {
     }
 
     /**
-     * Asserts successfully when the value parameter does match against the passed EReg instance.
+     * Asserts that the value parameter does match against the passed EReg instance.
      * 
      * @example Assert.match(~/x/i, "haXe");
      * 
@@ -160,7 +164,7 @@ class Assert {
     }
     
     /**
-     * Checks that the test array contains the match parameter.
+     * Asserts that the array contains the match parameter.
      * @param match   The element that must be included in the tested array
      * @param values  The values to test
      */
@@ -170,7 +174,7 @@ class Assert {
     }
     
     /**
-     * Checks that the test array does not contain the match parameter.
+     * Asserts that the test array does not contain the match parameter.
      * @param match   The element that must NOT be included in the tested array
      * @param values  The values to test
      */
@@ -180,7 +184,7 @@ class Assert {
     }
     
     /**
-     * Checks that the expected values is contained in value.
+     * Asserts that the expected value is contained in string.
      * @param match  The string value that must be contained in value
      * @param value  The value to test
      */
