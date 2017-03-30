@@ -1,4 +1,5 @@
 package hx.debug;
+import haxe.PosInfos;
 
 /**
  * A set of functions that signify failure when expected conditions aren't meant.
