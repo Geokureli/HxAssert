@@ -55,13 +55,42 @@ class AssertLogger {
         return isTrue(value != null, msg, pos);
     }
     
-    
-    inline public function has(value:Dynamic, property:String, ?msg:String, ?pos:PosInfos):Bool {
+    //@:generic
+    inline public function exists<K, T>(map:Map<K, T>, key:K, ?msg:String, ?pos:PosInfos):Bool {
         
         if (msg == null)
-            msg = 'Could not find property $property';
+            msg = 'Could not find key ${Std.string(key)}';
         
-        return isTrue(Reflect.hasField(value, property), msg, pos);
+        return nonNull(map, null, pos) 
+            && isTrue(map.exists(key), msg, pos);
+    }
+    
+    //@:generic
+    inline public function notExists<K, T>(map:Map<K, T>, key:K, ?msg:String, ?pos:PosInfos):Bool {
+        
+        if (msg == null)
+            msg = 'Unexpected key ${Std.string(key)}';
+        
+        return nonNull(map, null, pos)
+            && isTrue(!map.exists(key), msg, pos);
+    }
+    
+    inline public function has(object:Dynamic, field:String, ?msg:String, ?pos:PosInfos):Bool {
+        
+        if (msg == null)
+            msg = 'Could not find field $field';
+        
+        return nonNull(object, null, pos)
+            && isTrue(Reflect.hasField(object, field), msg, pos);
+    }
+    
+    inline public function missing(object:Dynamic, field:String, ?msg:String, ?pos:PosInfos):Bool {
+        
+        if (msg == null)
+            msg = 'Unexpected field $field';
+        
+        return nonNull(object, null, pos)
+            && isTrue(!Reflect.hasField(object, field), msg, pos);
     }
     
     inline public function is(value:Dynamic, type:Dynamic, ?msg:String, ?pos:PosInfos):Bool {

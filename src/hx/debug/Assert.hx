@@ -75,13 +75,45 @@ class Assert {
     }
     
     /**
-     * Asserts that the 'value' parameter is of the of the passed type 'type'.
-     * @param value     The parent value to test
-     * @param property  The property to assert
+     * Asserts that the key parameter exist in the passed map.
+     * @param map       The map to check
+     * @param key       The existent key
      */
-    inline static public function has(value:Dynamic, property:String, ?msg:String, ?pos:PosInfos):Bool {
+    //@:generic
+    inline static public function exists<K, T>(map:Map<K, T>, key:K, ?msg:String, ?pos:PosInfos):Bool {
         
-        return _instance.has(value, property, msg, pos);
+        return _instance.exists(map, key, msg, pos);
+    }
+    
+    /**
+     * Asserts that the key parameter does not exist in the passed map.
+     * @param map       The map to test
+     * @param key       The inexistent key
+     */
+    //@:generic
+    inline static public function notExists<K, T>(map:Map<K, T>, key:K, ?msg:String, ?pos:PosInfos):Bool {
+        
+        return _instance.notExists(map, key, msg, pos);
+    }
+    
+    /**
+     * Asserts that the object contains the passed field.
+     * @param object    The parent value to test
+     * @param field     The existant field
+     */
+    inline static public function has(object:Dynamic, field:String, ?msg:String, ?pos:PosInfos):Bool {
+        
+        return _instance.has(object, field, msg, pos);
+    }
+    
+    /**
+     * Asserts that the object does not contain the passed field.
+     * @param object    The parent value to test
+     * @param field     The inexistant field
+     */
+    inline static public function missing(object:Dynamic, field:String, ?msg:String, ?pos:PosInfos):Bool {
+        
+        return _instance.missing(object, field, msg, pos);
     }
     
     /**
